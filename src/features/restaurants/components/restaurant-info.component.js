@@ -7,12 +7,13 @@ const RestaurantCard = styled(Card)`
 background-color: yellow;`;
 const Title = styled.Text`
 padding: 16px;
-color: red;
+color: ${(props) => props.theme.colors.ui.primary};
 
 `;
 const RestaurantCardCover = styled(Card.Cover)`
 background-color: yellow;
 padding: 20px;`
+
 
 export const RestaurantInfo = ({restaurant ={}}) => {
     const {
