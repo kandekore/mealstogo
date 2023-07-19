@@ -1,6 +1,18 @@
 import react from "react";
 import {Text, StyleSheet} from "react-native";
 import { Card } from "react-native-paper";
+import styled from "styled-components/native"
+
+const RestaurantCard = styled(Card)`
+background-color: yellow;`;
+const Title = styled.Text`
+padding: 16px;
+color: red;
+
+`;
+const RestaurantCardCover = styled(Card.Cover)`
+background-color: yellow;
+padding: 20px;`
 
 export const RestaurantInfo = ({restaurant ={}}) => {
     const {
@@ -13,10 +25,10 @@ export const RestaurantInfo = ({restaurant ={}}) => {
         isClosedTemporarily,
     } = restaurant;
     return (
-        <Card elevation={5} style={styles.card}>
-            <Card.Cover key={name} style={styles.cover} source={{ uri: photos[0]}} />
-            <Text style={styles.title}>{name}</Text>
-        </Card>
+        <RestaurantCard >
+            <RestaurantCardCover source={{ uri: photos[0]}} />
+            <Title >{name}</Title>
+        </RestaurantCard>
     )
 }
 
