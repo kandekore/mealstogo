@@ -6,23 +6,38 @@ import { RestaurantInfo } from "../components/restaurant-info.component";
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import styled from "styled-components/native"
 
+const SafeArea = styled(SafeAreaView)`
+flex: 1;
+${StatusBar.currentHeight && `marginTop: ${StatusBar.currentHeight}px`};
+`;
+
+const SearchContainer = styled(View)`
+    padding: 16px;
+`;
+
+const RestaurantListContainer = styled.View`
+flex: 1;
+padding: 16px;
+backgroundColor: red;
+`;
+
 
 export const RestaurantsScreen = () => (
-    <SafeAreaProvider>
-    <SafeAreaView style={styles.container}>
-        <View style={styles.search}>
+    
+    <SafeArea>
+        <SearchContainer>
           <Searchbar />
-        </View>
-        <View style={styles.list}>
+        </SearchContainer>
+        <RestaurantListContainer >
           
           <RestaurantInfo />
-        </View>
-      </SafeAreaView>
-      </SafeAreaProvider>
+        </RestaurantListContainer>
+      </SafeArea>
+     
       
 );
 
-const styles = StyleSheet.create({
+/*const styles = StyleSheet.create({
     container: {
       flex: 1,
       marginTop: StatusBar.currentHeight
@@ -35,5 +50,5 @@ const styles = StyleSheet.create({
       padding: 16,
       backgroundColor: "blue"
     }
-  });
+  });*/
   
