@@ -6,13 +6,13 @@ import styled from "styled-components/native"
 const RestaurantCard = styled(Card)`
 background-color: yellow;`;
 const Title = styled.Text`
-padding: 16px;
+padding: ${(props) => props.theme.space[2]};
 color: ${(props) => props.theme.colors.ui.primary};
 
 `;
 const RestaurantCardCover = styled(Card.Cover)`
-background-color: yellow;
-padding: 20px;`
+background-color: ${(props) => props.theme.colors.bg.primary};
+padding: ${(props) => props.theme.space[2]};`
 
 
 export const RestaurantInfo = ({restaurant ={}}) => {
@@ -35,8 +35,8 @@ export const RestaurantInfo = ({restaurant ={}}) => {
 
 
 
-const styles = StyleSheet.create({
+/*const styles = StyleSheet.create({
     card: { backgroundColor: "white"},
     cover: { padding: 20, backgroundColor: "white"},
     title: { padding: 16},
-})
+}) */
