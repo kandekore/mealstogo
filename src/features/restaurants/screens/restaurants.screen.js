@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { FlatList } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
-import { Searchbar, ActivityIndicator, MD2Colors } from "react-native-paper";
+import { ActivityIndicator, MD2Colors } from "react-native-paper";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -26,7 +26,7 @@ const LoadingContainer = styled.View`
   left: 50%;
 `;
 
-export const RestaurantsScreen = () => {
+export const RestaurantsScreen = ({ navigation }) => {
   const { isLoading, error, restaurants } = useContext(RestaurantsContext);
   return (
     <SafeArea>
@@ -40,9 +40,17 @@ export const RestaurantsScreen = () => {
         data={restaurants}
         renderItem={({ item }) => {
           return (
+            <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("RestaurantDetail", {
+                restaurant: item,
+              })
+            }
+          >
             <Spacer position="bottom" size="large">
               <RestaurantInfoCard restaurant={item} />
             </Spacer>
+          </TouchableOpacity>
           );
         }}
         keyExtractor={(item) => item.name}

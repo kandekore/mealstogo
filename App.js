@@ -12,6 +12,7 @@ import {
   Oswald_400Regular,
 } from "@expo-google-fonts/oswald";
 import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
+import { Navigation } from "./src/infrastructure/navigation";
 
 import { theme } from "./src/infrastructure/theme";
 import { RestaurantsScreen } from "./src/features/restaurants/screens/restaurants.screen";
@@ -65,25 +66,7 @@ export default function App() {
       
       <LocationContextProvider>
           <RestaurantsContextProvider>
-            <NavigationContainer>
-            <Tab.Navigator
-  screenOptions={({ route }) => ({
-    tabBarIcon: ({ size, color }) => (
-      <Ionicons name={TAB_ICON[route.name]} size={size} color={color} />
-    ),
-    tabBarActiveTintColor: "tomato",
-    tabBarInactiveTintColor: "gray",
-    tabBarStyle: {
-      display: "flex",
-    },
-  })}
->
-  <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
-  <Tab.Screen name="Map" component={Map} />
-  <Tab.Screen name="Settings" component={Settings} />
-</Tab.Navigator>
-
-            </NavigationContainer>
+          <Navigation />
           </RestaurantsContextProvider>
         </LocationContextProvider>
       
