@@ -67,11 +67,17 @@ export default function App() {
           <RestaurantsContextProvider>
             <NavigationContainer>
               <Tab.Navigator
-                screenOptions={createScreenOptions}
-                tabBarOptions={{
+                screenOptions={{
+                  "tabBarActiveTintColor":"tomato",
+                  "tabBarInactiveTintColor":"gray",
+                  "tabBarStyle": [
+                    {"display":"flex"}, null
+                  ]
+                }}
+              /*  tabBarOptions={{
                   activeTintColor: "tomato",
                   inactiveTintColor: "gray",
-                }}
+                }}*/
               >
                 <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
                 <Tab.Screen name="Map" component={Map} />
