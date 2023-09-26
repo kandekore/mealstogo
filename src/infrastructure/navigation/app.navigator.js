@@ -35,7 +35,7 @@ const createScreenOptions = ({ route }) => {
 };
 
 export const AppNavigator = () => (
-  <NavigationContainer>
+
   <Tab.Navigator
   screenOptions={({ route }) => ({
     tabBarIcon: ({ size, color }) => (
@@ -53,5 +53,5 @@ export const AppNavigator = () => (
   <Tab.Screen name="Settings" component={Settings} />
 </Tab.Navigator>
 
-</NavigationContainer>
+
 );

@@ -1,23 +1,21 @@
-import React, { useState, createContext, useRef } from "react";
+import React, { useState, createContext } from "react";
 import {
+  signInWithEmailAndPassword,
   signOut,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
-  getAuth,
 } from "firebase/auth";
+import { auth } from "./firebase";
 
-import { loginRequest } from "./authentication.service";
-
-export const AuthenticationContext = React.createContext({
-  isAuthenticated: false, 
-  // ... other default values
+export const AuthenticationContext = createContext({
+  isAuthenticated: false,
+  onLogin: (email, password) => {},
 });
 
 export const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-  const auth = useRef(getAuth()).current;
 
   onAuthStateChanged(auth, (usr) => {
     if (usr) {
@@ -30,9 +28,9 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   const onLogin = (email, password) => {
     setIsLoading(true);
-    loginRequest(auth, email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((u) => {
-        setUser(u);
+        setUser(u.user);  
         setIsLoading(false);
       })
       .catch((e) => {
@@ -45,11 +43,12 @@ export const AuthenticationContextProvider = ({ children }) => {
     setIsLoading(true);
     if (password !== repeatedPassword) {
       setError("Error: Passwords do not match");
+      setIsLoading(false);  
       return;
     }
     createUserWithEmailAndPassword(auth, email, password)
       .then((u) => {
-        setUser(u);
+        setUser(u.user);  
         setIsLoading(false);
       })
       .catch((e) => {
@@ -78,8 +77,6 @@ export const AuthenticationContextProvider = ({ children }) => {
       }}
     >
       {children}
-      <App />
-
     </AuthenticationContext.Provider>
   );
 };

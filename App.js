@@ -3,7 +3,7 @@ import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
 import { Text } from "react-native";
 import { ThemeProvider } from "styled-components/native";
-//import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { initializeApp } from "firebase/app";
 import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,22 +15,14 @@ import {Ionicons}  from "@expo/vector-icons/";
 import { RestaurantsContextProvider } from "./src/services/restaurants/restaurants.context";
 import { LocationContextProvider } from "./src/services/location/location.context";
 import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
+import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
+import { auth } from "./src/services/authentication/firebase"
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCb5JH2pKBDGK6EymLiTLak7aqsCGPtfq4",
-  authDomain: "mealstogo-6c50f.firebaseapp.com",
-  projectId: "mealstogo-6c50f",
-  storageBucket: "mealstogo-6c50f.appspot.com",
-  messagingSenderId: "933672444882",
-  appId: "1:933672444882:web:a803b9de6b5bc486835e0b",
-  measurementId: "G-LPCT04BPWS"
-};
-const app = initializeApp(firebaseConfig);
 
-//const auth = initializeAuth(app, {
- // persistence: getReactNativePersistence(ReactNativeAsyncStorage)
-//});
+// const auth = initializeAuth(app, {
+//   persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+// });
 
 import {
   useFonts as useOswald,
@@ -73,45 +65,39 @@ const createScreenOptions = ({ route }) => {
 };
 
 export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  useEffect(() => {
-    setTimeout(() => {
-      const auth = getAuth();
-      signInWithEmailAndPassword(auth, "mo@binni.io", "test123")
-        .then((user) => {
-          setIsAuthenticated(true);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    }, 2000);
-}, []);
+//   const [isAuthenticated, setIsAuthenticated] = useState(false);
+//   useEffect(() => {
+//     setTimeout(() => {
+//      // const auth = getAuth();
+//       signInWithEmailAndPassword(auth, email, password)
+//         .then((user) => {
+//           setIsAuthenticated(true);
+//         })
+//         .catch((e) => {
+//           console.log(e);
+//         });
+//     }, 2000);
+// }, []);
 
-  const [oswaldLoaded] = useOswald({
-    Oswald_400Regular,
-  });
-
-  const [latoLoaded] = useLato({
-    Lato_400Regular,
-  });
+  const [oswaldLoaded] = useOswald({ Oswald_400Regular });
+  const [latoLoaded] = useLato({ Lato_400Regular });
 
   if (!oswaldLoaded || !latoLoaded) {
     return null;
   }
 
-  if (!isAuthenticated) return null;
-
-
   return (
     <>
       <ThemeProvider theme={theme}>
-      <FavouritesContextProvider>
-      <LocationContextProvider>
-          <RestaurantsContextProvider>
-          <Navigation />
-          </RestaurantsContextProvider>
-        </LocationContextProvider>
-        </FavouritesContextProvider>
+        <AuthenticationContextProvider>
+          <FavouritesContextProvider>
+            <LocationContextProvider>
+              <RestaurantsContextProvider>
+                <Navigation />
+              </RestaurantsContextProvider>
+            </LocationContextProvider>
+          </FavouritesContextProvider>
+        </AuthenticationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
