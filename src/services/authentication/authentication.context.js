@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useRef } from "react";
 import {
   signInWithEmailAndPassword,
   signOut,
@@ -11,6 +11,8 @@ export const AuthenticationContext = createContext({
   isAuthenticated: false,
   onLogin: (email, password) => {},
 });
+
+
 
 export const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
