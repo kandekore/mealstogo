@@ -4,6 +4,7 @@ import {
   signOut,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  getAuth,
 } from "firebase/auth";
 import { auth } from "./firebase";
 
@@ -18,6 +19,7 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const auth = useRef(getAuth()).current
 
   onAuthStateChanged(auth, (usr) => {
     if (usr) {
