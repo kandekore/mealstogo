@@ -9,8 +9,6 @@ import {Ionicons}  from "@expo/vector-icons/";
 
 import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
 
-
-
 import {
   useFonts as useOswald,
   Oswald_400Regular,
